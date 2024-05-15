@@ -6,31 +6,22 @@ CALL resilia.inserir_relacionamentos();
 --1. Selecionar a quantidade total de estudantes cadastrados no banco código: 
 	SELECT COUNT(alunos.nome) AS total_estudantes
 	FROM resilia.alunos
+	
+	
+--2.  Selecionar quais pessoas facilitadoras atuam em mais de uma turma: OK ✔
 
---2.SELECIONAR OS FACILITADORES QUE ESTÃO EM MAIS DE UMA TURMA(ERRADO):
-SELECT 
-    f.id_facilitador,
-    f.nome,
-    COUNT(ft.id_turma) AS numero_de_turmas
-FROM 
-    resilia.Facilitadores f
-JOIN 
-    resilia.Facilitadores_Turmas ft ON f.id_facilitador = ft.id_facilitador
-GROUP BY 
-    f.id_facilitador, f.nome
-HAVING 
-    COUNT(ft.id_turma) > 1;
-
--- 4.CRIAR TABELA DE LOG PARA VISUALIZAR ATUALIZAÇÃO DE STATUS DO ALUNO
-CREATE TABLE resilia.Log_Status_Alunos (
-    id SERIAL PRIMARY KEY,
-    id_aluno INTEGER,
-    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status_anterior VARCHAR(20),
-    status_novo VARCHAR(20)
-);
---visualizar log
-select * from resilia.Log_status_alunos;
+	SELECT 
+		f.id_facilitador,
+		f.nome,
+		COUNT(ft.id_turma) AS numero_de_turmas
+	FROM 
+		resilia.Facilitadores f
+	JOIN 
+		resilia.Facilitadores_Turmas ft ON f.id_facilitador = ft.id_facilitador
+	GROUP BY 
+		f.id_facilitador, f.nome
+	HAVING 
+		COUNT(ft.id_turma) > 1;
 
 --3.CRIAR A VIEW PARA VER PORCENTAGEM DE EVASÃO POR TURMA
 CREATE VIEW resilia.Porcentagem_Evasao_Por_Turma AS
@@ -50,6 +41,20 @@ GROUP BY
 
 --visualizar a porcentagem de evasão:
 SELECT * FROM resilia.Porcentagem_Evasao_Por_Turma;
+
+
+-- 4.CRIAR TABELA DE LOG PARA VISUALIZAR ATUALIZAÇÃO DE STATUS DO ALUNO
+CREATE TABLE resilia.Log_Status_Alunos (
+    id SERIAL PRIMARY KEY,
+    id_aluno INTEGER,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status_anterior VARCHAR(20),
+    status_novo VARCHAR(20)
+);
+--visualizar log
+select * from resilia.Log_status_alunos;
+
+
 
 -- 4.CRIAR TRIGGER PARA ATUALIZAÇÃO
 CREATE OR REPLACE FUNCTION resilia.trigger_atualizacao_status_aluno()
