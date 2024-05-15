@@ -167,12 +167,7 @@ BEGIN
         ('Pedro Santos', 'pedro.santos@empresa.com', '(21) 1234-5678'),
         ('Mariana Costa', 'mariana.costa@empresa.com', '(31) 2468-1357'),
         ('Lucas Oliveira', 'lucas.oliveira@empresa.com', '(41) 9876-5432'),
-        ('Isabela Rodrigues', 'isabela.rodrigues@empresa.com', '(51) 1234-5678'),
-		('Carlos Mendes', 'carlos.mendes@empresa.com', '(61) 9987-6543'),
-		('Juliana Ribeiro', 'juliana.ribeiro@empresa.com', '(71) 9123-4567'),
-		('Roberto Dias', 'roberto.dias@empresa.com', '(81) 9234-5678'),
-		('Fernanda Lima', 'fernanda.lima@empresa.com', '(91) 9345-6789'),
-		('Ricardo Alves', 'ricardo.alves@empresa.com', '(01) 9456-7890');
+        ('Isabela Rodrigues', 'isabela.rodrigues@empresa.com', '(51) 1234-5678');
 
 	INSERT INTO resilia.facilitadores (nome, email, telefone)
     SELECT nome, email, telefone FROM temp_facilitadores;
@@ -234,6 +229,6 @@ BEGIN
 
     -- Inserir dados na tabela Facilitadores_Turmas
     INSERT INTO resilia.Facilitadores_Turmas (id_facilitador, id_turma) VALUES
-    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6,1), (7,2), (8,3), (9,4), (10,5);
+    (1, 1), (1, 2), (2, 3), (2, 4), (3, 5), (3,1), (4,2), (4,3), (5,4), (5,5);
 END;
 $$;
